@@ -15,10 +15,15 @@
     "jsx": "react-jsx",
 
     /* Linting */
-    "strict": true,
+    // "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Extra */
+    "noImplicitAny": false,
+    "allowJs": true,
+    "strict": false
   },
   "include": ["src"]
 }
