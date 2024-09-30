@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Hystory } from './history'
+import { History } from "./history";
+
 
 const TipCalculator: React.FC = () => {
   const [billAmount, setBillAmount] = useState<number>(0);
   const [tipPercentage, setTipPercentage] = useState<number>(0);
   const [tipAmount, setTipAmount] = useState<number>(0);
   const [totalAmount, setTotalAmount] = useState<number>(0);
-  const [history,setHistory]=useState<{
+  const [historyState,setHistoryState]=useState<{
     bill: number,
     tipPercentage: number,
     tip: number,
@@ -18,23 +19,22 @@ const TipCalculator: React.FC = () => {
     const tip = (billAmount * tipPercentage) / 100;
     setTipAmount(tip);
     setTotalAmount(billAmount + tip);
-    setHistory((historyPrev)=>{
-      const newHistory={
-        bill: billAmount,
-        tipPercentage: tipPercentage,
-        tip: tip,
-        total: totalAmount 
-      }
-
-      return newHistory
+    const newHistory = historyState.length > 10 ? historyState.shift() : null;
+  
+    newHistory.push({
+      bill: billAmount,
+      tipPercentage: tipPercentage,
+      tip: tip,
+      total: totalAmount 
     })
+    setHistoryState(newHistory)
     
   };
 
   const deleteAllHistory = () => {
-    const confirmation=window.confirm("Estas seguro que quieres eliminar el hisotrial?")
+    const confirmation=window.confirm("Estas seguro que quieres eliminar el histrial?")
     if(confirmation){
-      setHistory([]) 
+      setHistoryState([]) 
     }
   }
 
@@ -70,7 +70,7 @@ const TipCalculator: React.FC = () => {
         <h2>Total a Pagar: ${totalAmount.toFixed(2)}</h2>
       </div>
 
-      <History history={history} />
+      <History  history={historyState}/>
     </div>
   );
 };
