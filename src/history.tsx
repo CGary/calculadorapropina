@@ -6,18 +6,17 @@ export interface HistoryType {
 }
 
 export const History = ({historyState}) => {
-
 	return (
         <>
             <table>
                 <tr>
-                    <td>billonto</td>
+                    <td>billmonto</td>
                     <td>tipPercentagetaje</td>
                     <td>tipotal</td>
                 <td>total</td>
                 </tr>
       
-             {historyState.map((item)=>{
+             {historyState.map((item: HistoryType)=>{
                 return (       <tr>
                     <td>{item.bill}</td>
                     <td>{item.tipPercentage}</td>

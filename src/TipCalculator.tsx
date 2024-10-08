@@ -19,8 +19,9 @@ const TipCalculator: React.FC = () => {
     const tip = (billAmount * tipPercentage) / 100;
     setTipAmount(tip);
     setTotalAmount(billAmount + tip);
-    const newHistory = historyState.length > 10 ? historyState.shift() : null;
-  
+    
+    const newHistory = historyState;
+    if (historyState.length > 10) newHistory.shift();
     newHistory.push({
       bill: billAmount,
       tipPercentage: tipPercentage,
@@ -32,18 +33,19 @@ const TipCalculator: React.FC = () => {
   };
 
   const deleteAllHistory = () => {
-    const confirmation=window.confirm("Estas seguro que quieres eliminar el histrial?")
+    const confirmation=window.confirm("Estas seguro que quieres eliminar el historial?")
     if(confirmation){
       setHistoryState([]) 
+      setBillAmount(0)
+      setTipPercentage(0)
+      setTipAmount(0)
+      setTotalAmount(0)
     }
-  }
+}
 
   return (
     <div>
       <h1>Calculadora de Propinas</h1>
-      <div>
-        <button onClick={deleteAllHistory}>Borrar todo el historial</button>
-      </div>
       <div>
         <label>
           Monto de la factura:
@@ -69,8 +71,10 @@ const TipCalculator: React.FC = () => {
         <h2>Monto de la Propina: ${tipAmount.toFixed(2)}</h2>
         <h2>Total a Pagar: ${totalAmount.toFixed(2)}</h2>
       </div>
-
-      <History  history={historyState}/>
+      <div>
+        <button onClick={deleteAllHistory}>Borrar todo el historial</button>
+      </div>
+      <History  historyState={historyState}/>
     </div>
   );
 };
